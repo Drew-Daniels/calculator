@@ -55,8 +55,24 @@ function writeDisplay(num) {
     display.textContent(str)
 }
 
-const display = document.querySelector('#display-text');
+const mainDisplay = document.querySelector('#MAIN-display-text');
 const operatorKey = document.querySelector('#operatorKey')
+const btnNodeList = document.querySelectorAll('button');
+const btns = [...btnNodeList];
+console.log(btns)
+const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const operators = ['+', '-', '*', '/'];
+const numsAndOps = numbers.concat(operators);
+
+let displayStr = '';
+
+btns.forEach(c => c.addEventListener('click', function() {
+    let lbl = c.innerText;
+    if (lbl in numsAndOps) {
+        displayStr.concat(lbl)
+        mainDisplay.innerText = displayStr;
+    }
+}))
 
 //create a function to append all button clicks to a common string
 //where we can use regex to parse out the numbers separated by an operator

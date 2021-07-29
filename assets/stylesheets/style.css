@@ -30,7 +30,6 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-    background-color: steelblue;
 }
 ol, ul {
 	list-style: none;
@@ -48,6 +47,10 @@ table {
 	border-spacing: 0;
 }
 
+* {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
 .btn-base {
     background-color: snow;
     font-size: medium;
@@ -56,6 +59,10 @@ table {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto 250px;
+    min-height: 50vh;
 }
 
 #CONTAINER-body {
@@ -64,6 +71,7 @@ table {
     align-items: center;
     justify-content: center;
     background-color: silver;
+    border-radius: 5px;
     width: auto;
     height: auto;
     max-width: 100%;
@@ -71,14 +79,26 @@ table {
 
 #CONTAINER-display {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-#display {
+#MAIN-display {
     display: flex;
     align-items: center;
     justify-content: right;
+    background-color: blue;
+    background: rgba(142, 170, 247, 0.5);
+    width: 80px;
+}
+
+#BGRD-display {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    background: rgba(142, 170, 247, 0.5);
+    width: 80px;
 }
 
 #CONTAINER-btn-big {
@@ -98,6 +118,7 @@ table {
 
 .btn-small {
     background-color: snow;
+
     font-size: medium;
 }
 

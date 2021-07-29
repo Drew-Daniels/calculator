@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+    background-color: steelblue;
 }
 ol, ul {
 	list-style: none;
@@ -45,4 +46,67 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+.btn-base {
+    background-color: snow;
+    font-size: medium;
+}
+#CONTAINER-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#CONTAINER-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: silver;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+}
+
+#CONTAINER-display {
+    display: flex;
+}
+
+#display {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+#CONTAINER-btn-big {
+    display: flex;
+    flex-direction: row;
+}
+
+#CONTAINER-btn-small {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.btn-big {
+    font-size: large;
+}
+
+.btn-small {
+    background-color: snow;
+    font-size: medium;
+}
+
+.btn-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.break {
+    flex-basis: 100%;
+    height: 0;
 }

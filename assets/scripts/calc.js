@@ -53,8 +53,9 @@ function selfTest() {
     console.log(add(2, 4));
     console.log(add(50, 50));
     lineBreak();
+    funcDesc('SUBTRACT')
+    console.log(subtract(2, 4));
+    console.log(subtract(100, 50));    
 }
-
-selfTest();
 
 

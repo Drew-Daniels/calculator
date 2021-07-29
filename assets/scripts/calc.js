@@ -32,30 +32,57 @@ function divide(n1, n2) {
 };
 
 function operate(n1, op, n2) {
+    [n1, n2] = [n1, n2].map(x => parseInt(x))
+    let method;
     switch (true) {
         case (op === "+"):
-            return add(n1, n2);
+            method = add;
+            break;
         case (op === "-"):
-            return subtract(n1, n2);
+            method = subtract;
+            break;
         case (op === "*"):
-            return multiply(n1, n2);
+            method = multiply;
+            break;
         case (op === "/"):
-            return divide(n1, n2);
+            method = divide;
     }
+    return method(n1, n2);
 }
 
+function writeDisplay(num) {
+    let str = String(num)
+    display.textContent(str)
+}
+
+const display = document.querySelector('#display-text');
+const operatorKey = document.querySelector('#operatorKey')
+
+//create a function to append all button clicks to a common string
+//where we can use regex to parse out the numbers separated by an operator
+//followed by another number
 const lineBreak = () => console.log('-'.repeat(40))
 const funcDesc = (func) => console.log(`-------------${func}-------------`)
 
 function selfTest() {
-    lineBreak();
     funcDesc('ADD')
     console.log(add(2, 4));
     console.log(add(50, 50));
-    lineBreak();
     funcDesc('SUBTRACT')
     console.log(subtract(2, 4));
-    console.log(subtract(100, 50));    
+    console.log(subtract(100, 50));
+    funcDesc('MULTIPLY');
+    console.log(multiply(2, 4));
+    console.log(multiply(100, 50));
+    funcDesc('DIVIDE');
+    console.log(divide(4, 2));
+    console.log(divide(100, 50));
+    funcDesc('OPERATOR');
+    console.log(operate('2','+','2'))
+    console.log(operate('2','-','2'))
+    console.log(operate('2','*','2'))
+    console.log(operate('2','/','2'))
 }
 
+selfTest();
 

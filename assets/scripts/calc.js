@@ -68,38 +68,33 @@ console.log(numsAndOps);
 let mainDisplayStr = ''; //main display
 let altDisplayStr = ''; //alternate display
 
-btns.forEach(c => c.addEventListener('click', function() {
-    let lbl = c.innerText;
+btns.forEach(b => b.addEventListener('click', function() {
+    let ch = b.innerText;
+    let bId = b.id;
     let lastDisplayCh = mainDisplayStr.slice(0,-1);
-    if (operators.includes(lastDisplayCh)) {
-        
-    } else if (numbers.includes(lbl)) {
-        mainDisplayStr += lbl;
-    } else if (operators.includes(lbl)) {
-        mainDisplayStr += lbl;
-        altDisplayStr = mainDisplayStr.slice(0,-1);
-    } else {
-        let bId = c.id;
-        switch (true) {
-            case (bId === 'equals'): {
-                //operate here
-                break;
-            }
-            case (bId === 'clearBtn'): {
-                mainDisplayStr = '';
-                break;
-            }
-            case (bId === 'deleteBtn'): {
-                mainDisplayStr = mainDisplayStr.slice(0,-1);
-                break;
-            }
-            // case (bId === 'decimal'): {
-            //     if (!(mainDisplayStr.includes('.'))) {
-            //         mainDisplayStr = mainDisplayStr + '.'
-            //     }
+
+    // Scenario 1 - DEL or CLR
+    if (bId === 'deleteBtn' || bId === 'clearBtn') {
+        if (bId === 'deleteBtn') {
+            mainDisplayStr = mainDisplayStr.slice(0,-1);
+        } else if(bId === 'clearBtn') {
+            [mainDisplayStr, altDisplayStr] = ['','']
+        }
+    else if (operators.includes(ch)) {
+        } if (!(/[\*+-\/]/.test(altDisplayStr))) {
+            // Scenario 2 - No operator in altDisplayStr already
+            
+        } else {
+            // Scenario 3 - IS an operator in altDisplayStr already
+            if (numbers.includes(ch)) {
+                mainDisplayStr = mainDisplayStr + ch;
+            } else if (operators.includes) {
+
             }
         }
-        
+    }
+
+    
     mainDisplay.innerText = mainDisplayStr;
     altDisplay.innerText = altDisplayStr;
 }))

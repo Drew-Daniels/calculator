@@ -31,7 +31,35 @@ function divide(n1, n2) {
     return (n1 / n2);
 };
 
-function operate(n1, op, n2) {
+// function operate(n1, op, n2) {
+//     [n1, n2] = [n1, n2].map(x => parseInt(x))
+//     let method;
+//     switch (true) {
+//         case (op === "+"):
+//             method = add;
+//             break;
+//         case (op === "-"):
+//             method = subtract;
+//             break;
+//         case (op === "*"):
+//             method = multiply;
+//             break;
+//         case (op === "/"):
+//             method = divide;
+//     }
+//     return method(n1, n2);
+// }
+
+function operateNew(mathStr) {
+    let n1;
+    let op;
+    let n2;
+    let parts = mathStr.split(/(\d)/);
+    console.log(parts)
+    [n1, op, n2] = [parts[1], parts[2], parts[3]]
+    console.log(n1)
+    console.log(op)
+    console.log(n2)
     [n1, n2] = [n1, n2].map(x => parseInt(x))
     let method;
     switch (true) {
@@ -63,40 +91,50 @@ const btns = [...btnNodeList];
 let numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 let operators = ['+', '-', '*', '/'];
 let numsAndOps = numbers.concat(operators);
-console.log(numsAndOps);
 
-let mainDisplayStr = ''; //main display
-let altDisplayStr = ''; //alternate display
+let displayStr = '';
 
 btns.forEach(b => b.addEventListener('click', function() {
     let ch = b.innerText;
     let bId = b.id;
-    let lastDisplayCh = mainDisplayStr.slice(0,-1);
+    let lastDisplayCh = mainDisplayStr.slice(-1);
 
-    // Scenario 1 - DEL or CLR
-    if (bId === 'deleteBtn' || bId === 'clearBtn') {
-        if (bId === 'deleteBtn') {
-            mainDisplayStr = mainDisplayStr.slice(0,-1);
-        } else if(bId === 'clearBtn') {
-            [mainDisplayStr, altDisplayStr] = ['','']
-        }
-    else if (operators.includes(ch)) {
-        } if (!(/[\*+-\/]/.test(altDisplayStr))) {
-            // Scenario 2 - No operator in altDisplayStr already
-            
+    // Scenario 1 - ch is DEL or CLR
+    if (ch === 'DEL') {
+        if (displayStr === '') {
+            return
         } else {
-            // Scenario 3 - IS an operator in altDisplayStr already
-            if (numbers.includes(ch)) {
-                mainDisplayStr = mainDisplayStr + ch;
-            } else if (operators.includes) {
-
+            displayStr = displayStr.slice(0, -1);
+        }
+    }
+    else if (ch === 'CLR') {
+        displayStr = '';
+    }
+    // Scenario 2 - ch is a NUMBER
+    else if (numbers.includes(ch)) {
+        displayStr = displayStr + ch;
+    }
+    // Scenario 3 - ch is an OPERATOR
+    else if (operators.includes(ch)) {
+        // if displayStr is blank, do not tack on an operator
+        if (displayStr === '') {
+            return;
+        }
+        // if lastDisplayCh is operator, replace with ch
+        else if (operators.includes(lastDisplayCh)) {
+            displayStr = displayStr.slice(0,-1) + ch;
+        } else {
+            // if displayStr already has operator, send
+            if (/[+*-\/]/.test(displayStr)) {
+                // send to parser/operate()
+                // set displayStr to calculated result + ch
+            // if displayStr does NOT already have an operator
+            } else {
+                displayStr = displayStr + ch;
             }
         }
     }
 
-    
-    mainDisplay.innerText = mainDisplayStr;
-    altDisplay.innerText = altDisplayStr;
 }))
 // add functionality to detect keystrokes also
 
@@ -127,5 +165,4 @@ function selfTest() {
     console.log(operate('2','/','2'))
 }
 
-selfTest();
 

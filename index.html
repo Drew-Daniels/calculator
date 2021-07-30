@@ -7,46 +7,46 @@
 </head>
 <header></header>
 <body>
-    <script src="assets/scripts/calc.js"></script>
+    <script src="assets/scripts/calc.js" defer></script>
     <div id="CONTAINER-all">
         <div id="CONTAINER-body">
             <!--All contains the BODY; BODY contains the DISPLAY, BIG-BTNS, and SMALL-BTNS-->
             <div id="CONTAINER-display">
-                <div id="BGRD-display">
-                    <p id="BGRD-display-text">test</p>
+                <div id="CONTAINER-ALT-display">
+                    <p id="ALT-display-text">test</p>
                 </div>
-                <div id="MAIN-display">
+                <div id="CONTAINER-MAIN-display">
                     <p id="MAIN-display-text">test</p>
                 </div>
             </div>
             <div id="CONTAINER-btn-big" class="btn-base btn-big">
-                <button>DEL</button>
-                <button>CLR</button>
+                <button id='deleteBtn'>DEL</button>
+                <button id='clearBtn'>CLR</button>
             </div>
             <div id="CONTAINER-btn-small" class="btn-base btn-small">
                 <div id="row-one" class="btn-row">
-                    <button>1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button>/</button>
+                    <button id='1'>1</button>
+                    <button id='2'>2</button>
+                    <button id='3'>3</button>
+                    <button id='divide'>/</button>
                 </div>
                 <div id="row-two" class="btn-row">
-                    <button>4</button>
-                    <button>5</button>
-                    <button>6</button>
-                    <button>*</button>
+                    <button id='4'>4</button>
+                    <button id='5'>5</button>
+                    <button id='6'>6</button>
+                    <button id='multiply'>*</button>
                 </div>
                 <div id="row-three" class="btn-row">
-                    <button>7</button>
-                    <button>8</button>
-                    <button>9</button>
-                    <button>-</button>
+                    <button id='7'>7</button>
+                    <button id='8'>8</button>
+                    <button id='9'>9</button>
+                    <button id='subtract'>-</button>
                 </div>
                 <div id="row-four" class="btn-row">
-                    <button>.</button>
-                    <button>0</button>
-                    <button id="operatorKey">=</button>
-                    <button>+</button>
+                    <button id='decimal'>.</button>
+                    <button id='0'>0</button>
+                    <button id="equals">=</button>
+                    <button id='add'>+</button>
                 </div>
             </div>
         </div>

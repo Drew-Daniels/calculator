@@ -56,23 +56,55 @@ function writeDisplay(num) {
 }
 
 const mainDisplay = document.querySelector('#MAIN-display-text');
-const operatorKey = document.querySelector('#operatorKey')
+const altDisplay = document.querySelector('#ALT-display-text');
+const operatorKey = document.querySelector('#operatorKey');
 const btnNodeList = document.querySelectorAll('button');
 const btns = [...btnNodeList];
-console.log(btns)
-const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-const operators = ['+', '-', '*', '/'];
-const numsAndOps = numbers.concat(operators);
+let numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+let operators = ['+', '-', '*', '/'];
+let numsAndOps = numbers.concat(operators);
+console.log(numsAndOps);
 
-let displayStr = '';
+let mainDisplayStr = ''; //main display
+let altDisplayStr = ''; //alternate display
 
 btns.forEach(c => c.addEventListener('click', function() {
     let lbl = c.innerText;
-    if (lbl in numsAndOps) {
-        displayStr.concat(lbl)
-        mainDisplay.innerText = displayStr;
-    }
+    let lastDisplayCh = mainDisplayStr.slice(0,-1);
+    if (operators.includes(lastDisplayCh)) {
+        
+    } else if (numbers.includes(lbl)) {
+        mainDisplayStr += lbl;
+    } else if (operators.includes(lbl)) {
+        mainDisplayStr += lbl;
+        altDisplayStr = mainDisplayStr.slice(0,-1);
+    } else {
+        let bId = c.id;
+        switch (true) {
+            case (bId === 'equals'): {
+                //operate here
+                break;
+            }
+            case (bId === 'clearBtn'): {
+                mainDisplayStr = '';
+                break;
+            }
+            case (bId === 'deleteBtn'): {
+                mainDisplayStr = mainDisplayStr.slice(0,-1);
+                break;
+            }
+            // case (bId === 'decimal'): {
+            //     if (!(mainDisplayStr.includes('.'))) {
+            //         mainDisplayStr = mainDisplayStr + '.'
+            //     }
+            }
+        }
+        
+    mainDisplay.innerText = mainDisplayStr;
+    altDisplay.innerText = altDisplayStr;
 }))
+// add functionality to detect keystrokes also
+
 
 //create a function to append all button clicks to a common string
 //where we can use regex to parse out the numbers separated by an operator

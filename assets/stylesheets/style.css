@@ -84,7 +84,7 @@ table {
     justify-content: center;
 }
 
-#MAIN-display {
+#CONTAINER-MAIN-display {
     display: flex;
     align-items: center;
     justify-content: right;
@@ -93,7 +93,7 @@ table {
     width: 80px;
 }
 
-#BGRD-display {
+#CONTAINER-ALT-display {
     display: flex;
     align-items: center;
     justify-content: right;

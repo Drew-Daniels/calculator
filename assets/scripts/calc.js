@@ -52,7 +52,7 @@ function operate(mathStr) {
         case (op === "/"):
             method = divide;
     }
-    return method(n1, n2);
+    return String(method(n1, n2));
 }
 
 function writeDisplay(num) {
@@ -103,6 +103,7 @@ btns.forEach(b => b.addEventListener('click', function() {
     }
     // Scenario 3 - ch is an OPERATOR
     else if (operators.includes(ch)) {
+        console.log(typeof displayStr);
         lastDisplayCh = getLastChar();
         // if displayStr is blank, do not tack on an operator
         if (displayStr === '') {

@@ -14,15 +14,6 @@ function sum(nums) {
     return sum;
 };
 
-// function multiply(nums) {
-// // expects an array of numbers to be passed
-// total = 1;
-// for (i=0; i < nums.length; i++) {
-//     total *= nums[i];
-// }
-// return total;
-// };
-
 function multiply(n1, n2) {
     return (n1 * n2);
 };
@@ -65,10 +56,25 @@ function getLastChar() {
     if (displayStr === '') {
         lastChar = '';
     } else {
-        console.log(displayStr);
         lastChar = displayStr.slice(-1);
     }
     return lastChar;
+}
+
+function altDisplayParse(disStr) {
+    let parts = disStr.split(/(\d*[+*-\/])/);
+    let str = parts[1];
+    if (str) {
+        return str;
+    } else return "";
+}
+
+function mainDisplayParse(disStr) {
+    let parts = disStr.split(/(\d*)/);
+    let str = parts.slice(-2,-1)
+    if (str) {
+        return str;
+    } else return "";
 }
 
 const mainDisplay = document.querySelector('#MAIN-display-text');
@@ -82,6 +88,7 @@ let numsAndOps = numbers.concat(operators);
 
 let displayStr = '';
 
+// Add on click events
 btns.forEach(b => b.addEventListener('click', function() {
     let ch = b.innerText;
     let bId = b.id;
@@ -103,7 +110,6 @@ btns.forEach(b => b.addEventListener('click', function() {
     }
     // Scenario 3 - ch is an OPERATOR
     else if (operators.includes(ch)) {
-        console.log(typeof displayStr);
         lastDisplayCh = getLastChar();
         // if displayStr is blank, do not tack on an operator
         if (displayStr === '') {
@@ -132,7 +138,9 @@ btns.forEach(b => b.addEventListener('click', function() {
         }
     }
 
-    mainDisplay.innerText = displayStr;
+    mainDisplay.innerText = mainDisplayParse(displayStr);
+    altDisplay.innerText = altDisplayParse(displayStr);
+
 }))
 // add functionality to detect keystrokes also
 

@@ -31,35 +31,12 @@ function divide(n1, n2) {
     return (n1 / n2);
 };
 
-// function operate(n1, op, n2) {
-//     [n1, n2] = [n1, n2].map(x => parseInt(x))
-//     let method;
-//     switch (true) {
-//         case (op === "+"):
-//             method = add;
-//             break;
-//         case (op === "-"):
-//             method = subtract;
-//             break;
-//         case (op === "*"):
-//             method = multiply;
-//             break;
-//         case (op === "/"):
-//             method = divide;
-//     }
-//     return method(n1, n2);
-// }
-
-function operateNew(mathStr) {
+function operate(mathStr) {
     let n1;
     let op;
     let n2;
-    let parts = mathStr.split(/(\d)/);
-    console.log(parts)
-    [n1, op, n2] = [parts[1], parts[2], parts[3]]
-    console.log(n1)
-    console.log(op)
-    console.log(n2)
+    let parts = mathStr.split(/(\d*)/);
+    [n1, op, n2] = [parts[1], parts[2], parts[3]];
     [n1, n2] = [n1, n2].map(x => parseInt(x))
     let method;
     switch (true) {
@@ -83,6 +60,17 @@ function writeDisplay(num) {
     display.textContent(str)
 }
 
+function getLastChar() {
+    let lastChar;
+    if (displayStr === '') {
+        lastChar = '';
+    } else {
+        console.log(displayStr);
+        lastChar = displayStr.slice(-1);
+    }
+    return lastChar;
+}
+
 const mainDisplay = document.querySelector('#MAIN-display-text');
 const altDisplay = document.querySelector('#ALT-display-text');
 const operatorKey = document.querySelector('#operatorKey');
@@ -97,12 +85,11 @@ let displayStr = '';
 btns.forEach(b => b.addEventListener('click', function() {
     let ch = b.innerText;
     let bId = b.id;
-    let lastDisplayCh = mainDisplayStr.slice(-1);
 
     // Scenario 1 - ch is DEL or CLR
     if (ch === 'DEL') {
         if (displayStr === '') {
-            return
+            return;
         } else {
             displayStr = displayStr.slice(0, -1);
         }
@@ -116,6 +103,7 @@ btns.forEach(b => b.addEventListener('click', function() {
     }
     // Scenario 3 - ch is an OPERATOR
     else if (operators.includes(ch)) {
+        lastDisplayCh = getLastChar();
         // if displayStr is blank, do not tack on an operator
         if (displayStr === '') {
             return;
@@ -126,7 +114,7 @@ btns.forEach(b => b.addEventListener('click', function() {
         } else {
             // if displayStr already has operator, send
             if (/[+*-\/]/.test(displayStr)) {
-                // send to parser/operate()
+                displayStr = operate(displayStr) + ch;
                 // set displayStr to calculated result + ch
             // if displayStr does NOT already have an operator
             } else {
@@ -134,7 +122,16 @@ btns.forEach(b => b.addEventListener('click', function() {
             }
         }
     }
+    else if (bId === 'equals') {
+        // operate(displayStr)
+        if (!(/\d*[+*-\/]\d*/.test(displayStr))) {
+            return;
+        } else {
+            displayStr = operate(displayStr);
+        }
+    }
 
+    mainDisplay.innerText = displayStr;
 }))
 // add functionality to detect keystrokes also
 

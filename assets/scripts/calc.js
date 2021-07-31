@@ -101,7 +101,6 @@ function mainDisplayParse(disStr) {
     if (!(disStr === ERROR_MSG)) {
         //old = (\d*[.]*\d*)
         let parts = disStr.split(/([\-]?\d*[.]*\d*)$/);
-        console.log(parts);
         let str = parts.slice(-2,-1);
         if (str) {
             return str;
@@ -127,6 +126,7 @@ let displayStr = '';
 btns.forEach(b => b.addEventListener('click', function() {
     let ch = b.innerText;
     let bId = b.id;
+    let parts;
     // Scenario 1 - clear out ERROR_MSG if present
     if (displayStr === ERROR_MSG) {
         displayStr = '';
@@ -180,7 +180,7 @@ btns.forEach(b => b.addEventListener('click', function() {
     // Scenario 4 - ch is EQUALS sign
     else if (bId === 'equals') {
         // operate(displayStr)
-        if (!(/\d*[+*-\/]\d*/.test(displayStr))) {
+        if (!(/\d*[\+\*\-\/]\d*/.test(displayStr))) {
             return;
         } else {
             displayStr = operate(displayStr);
@@ -188,7 +188,19 @@ btns.forEach(b => b.addEventListener('click', function() {
     }
     // Scenario 5 - ch is DECIMAL pt
     else if (ch === '.') {
-        
+        if(!displayStr) {
+            displayStr = ch;
+        } else {
+            // need some way to get the last full number and see if it has decimals already
+            //let lastNumArr = displayStr.split(/([\d]*\.[\d]+)$/).filter(Boolean).slice(-1);
+            let lastNumArr = displayStr.split(/[\-\+\*\/]/).filter(Boolean).slice(-1);
+            console.log(lastNumArr);
+            lastNum = lastNumArr[0];
+            console.log(lastNum);
+            if (!(lastNum.includes(ch))) {
+                displayStr += ch;
+            }
+        }
     }
 
     mainDisplay.innerText = mainDisplayParse(displayStr);
@@ -205,6 +217,8 @@ document.addEventListener('keydown', (e) => {
         btn = document.getElementById('equals');
     } else if (key == 'Backspace') {
         btn = document.getElementById('deleteBtn');
+    } else if (key == '.') {
+        btn = document.getElementById('decimal');
     }
     if (btn) {
         btn.click();

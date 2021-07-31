@@ -26,6 +26,7 @@ function operate(mathStr) {
     let n1;
     let op;
     let n2;
+    let result;
     let parts = mathStr.split(/(\d*)/);
     [n1, op, n2] = [parts[1], parts[2], parts[3]];
     [n1, n2] = [n1, n2].map(x => parseInt(x))
@@ -40,10 +41,15 @@ function operate(mathStr) {
         case (op === "*"):
             method = multiply;
             break;
-        case (op === "/"):
+        case (op === "/"):// add snarky comment for division by 0 here
             method = divide;
     }
-    return String(method(n1, n2));
+    result = String(method(n1, n2));
+    if (result === 'NaN' || 'Infinity' || 'undefined') {
+        return ERROR_MSG;
+    } else {
+        return result;
+    }
 }
 
 function writeDisplay(num) {
@@ -62,19 +68,21 @@ function getLastChar() {
 }
 
 function altDisplayParse(disStr) {
-    let parts = disStr.split(/(\d*[+*-\/])/);
-    let str = parts[1];
-    if (str) {
-        return str;
-    } else return "";
+        let parts = disStr.split(/(\d*[+*-\/])/);
+        let str = parts[1];
+        if (str) {
+            return str;
+        } else return "";
 }
 
 function mainDisplayParse(disStr) {
-    let parts = disStr.split(/(\d*)/);
-    let str = parts.slice(-2,-1)
-    if (str) {
-        return str;
-    } else return "";
+    if (!(disStr === ERROR_MSG)) {
+        let parts = disStr.split(/(\d*)/);
+        let str = parts.slice(-2,-1)
+        if (str) {
+            return str;
+        } else return "";
+    } else return ERROR_MSG;
 }
 
 const mainDisplay = document.querySelector('#MAIN-display-text');
@@ -82,6 +90,7 @@ const altDisplay = document.querySelector('#ALT-display-text');
 const operatorKey = document.querySelector('#operatorKey');
 const btnNodeList = document.querySelectorAll('button');
 const btns = [...btnNodeList];
+const ERROR_MSG = 'You Broke Me!'
 let numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 let operators = ['+', '-', '*', '/'];
 let numsAndOps = numbers.concat(operators);
@@ -92,6 +101,10 @@ let displayStr = '';
 btns.forEach(b => b.addEventListener('click', function() {
     let ch = b.innerText;
     let bId = b.id;
+    // Scenario 1 - clear out ERROR_MSG if present
+    if (displayStr === ERROR_MSG) {
+        displayStr = '';
+    }
 
     // Scenario 1 - ch is DEL or CLR
     if (ch === 'DEL') {

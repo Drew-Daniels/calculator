@@ -191,12 +191,10 @@ btns.forEach(b => b.addEventListener('click', function() {
         if(!displayStr) {
             displayStr = ch;
         } else {
-            // need some way to get the last full number and see if it has decimals already
-            //let lastNumArr = displayStr.split(/([\d]*\.[\d]+)$/).filter(Boolean).slice(-1);
-            let lastNumArr = displayStr.split(/[\-\+\*\/]/).filter(Boolean).slice(-1);
-            console.log(lastNumArr);
+            let lastNumArr = displayStr.split(/[\-\+\*\/]/)
+                                       .filter(Boolean)
+                                       .slice(-1);
             lastNum = lastNumArr[0];
-            console.log(lastNum);
             if (!(lastNum.includes(ch))) {
                 displayStr += ch;
             }

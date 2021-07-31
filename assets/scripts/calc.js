@@ -3,7 +3,6 @@ function add(n1, n2) {
   };
   
 function subtract(n1, n2) {
-    console.log(n1, n2);
     return (n1 - n2);
 };
 
@@ -24,14 +23,19 @@ function divide(n1, n2) {
 };
 
 function operate(mathStr) {
+    let sign;
     let n1;
     let op;
     let n2;
     let result;
-    let parts = mathStr.split(/([\-]?\d+\.*\d*)/);
-    console.log(parts);
-    [n1, op, n2] = [parts[1], parts[2], parts[3]];
-    [n1, n2] = [n1, n2].map(x => parseFloat(x))
+    let parts = mathStr.split(/([\-\+\*\-])/);
+    if (parts.length === 5) {    //'-96-9' => ['', '-', '96', '-', '9']
+        [sign, n1, op, n2] = [parts[1], parts[2], parts[3], parts[4]]
+    } else {                     //'96-9' => ['96','-','9']
+        [n1, op, n2] = [parts[0], parts[1], parts[2]];
+        [n1, n2] = [n1, n2].map(x => parseFloat(x));
+    }
+
     let method;
     switch (true) {
         case (op === "+"):
@@ -46,8 +50,12 @@ function operate(mathStr) {
         case (op === "/"):// add snarky comment for division by 0 here
             method = divide;
     }
-
-    result = String(Math.round(method(n1, n2)*100000)/100000)
+    if (sign) {
+        result = String(Math.round(method(-n1, n2)*100000)/100000)
+    } else {
+        result = String(Math.round(method(n1, n2)*100000)/100000)
+    }
+    
     if (result === 'NaN' || result === 'Infinity' || result ==='undefined') {
         return ERROR_MSG;
     } else {
@@ -92,14 +100,13 @@ function altDisplayParse(disStr) {
 function mainDisplayParse(disStr) {
     if (!(disStr === ERROR_MSG)) {
         //old = (\d*[.]*\d*)
-        let parts = disStr.split(/([\-]?\d+[.]*\d*)$/);
+        let parts = disStr.split(/([\-]?\d*[.]*\d*)$/);
         console.log(parts);
         let str = parts.slice(-2,-1);
         if (str) {
             return str;
         } else return "";
     } else {
-        console.log(displayStr);
         return ERROR_MSG;
     }
 }
@@ -170,6 +177,7 @@ btns.forEach(b => b.addEventListener('click', function() {
             }
         }
     }
+    // Scenario 4 - ch is EQUALS sign
     else if (bId === 'equals') {
         // operate(displayStr)
         if (!(/\d*[+*-\/]\d*/.test(displayStr))) {
@@ -177,6 +185,10 @@ btns.forEach(b => b.addEventListener('click', function() {
         } else {
             displayStr = operate(displayStr);
         }
+    }
+    // Scenario 5 - ch is DECIMAL pt
+    else if (ch === '.') {
+        
     }
 
     mainDisplay.innerText = mainDisplayParse(displayStr);

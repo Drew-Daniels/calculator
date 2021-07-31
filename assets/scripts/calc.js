@@ -45,7 +45,7 @@ function operate(mathStr) {
             method = divide;
     }
     result = String(method(n1, n2));
-    if (result === 'NaN' || 'Infinity' || 'undefined') {
+    if (result === 'NaN' || result === 'Infinity' || result ==='undefined') {
         return ERROR_MSG;
     } else {
         return result;
@@ -78,11 +78,14 @@ function altDisplayParse(disStr) {
 function mainDisplayParse(disStr) {
     if (!(disStr === ERROR_MSG)) {
         let parts = disStr.split(/(\d*)/);
-        let str = parts.slice(-2,-1)
+        let str = parts.slice(-2,-1);
         if (str) {
             return str;
         } else return "";
-    } else return ERROR_MSG;
+    } else {
+        console.log(displayStr);
+        return ERROR_MSG;
+    }
 }
 
 const mainDisplay = document.querySelector('#MAIN-display-text');

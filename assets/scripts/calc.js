@@ -51,9 +51,9 @@ function operate(mathStr) {
             method = divide;
     }
     if (sign) {
-        result = String(Math.round(method(-n1, n2)*100000)/100000)
+        result = String(Math.round(method(-n1, +n2)*100000)/100000);
     } else {
-        result = String(Math.round(method(n1, n2)*100000)/100000)
+        result = String(Math.round(method(+n1, +n2)*100000)/100000);
     }
     
     if (result === 'NaN' || result === 'Infinity' || result ==='undefined') {

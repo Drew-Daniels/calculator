@@ -148,11 +148,14 @@ document.addEventListener('keydown', (e) => {
     let key = e.key;
     if (numsAndOps.includes(key) || key === '=') {
         btn = document.getElementById(key);
-        btn.click();
     } else if (key == '='||key == 'Enter') {
         btn = document.getElementById('equals');
+    } else if (key == 'Backspace') {
+        btn = document.getElementById('deleteBtn');
+    }
+    if (btn) {
         btn.click();
-    } else console.log(key);
+    }
 })
 
 

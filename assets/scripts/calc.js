@@ -28,7 +28,7 @@ function operate(mathStr) {
     let op;
     let n2;
     let result;
-    let parts = mathStr.split(/([\-\+\*\-])/);
+    let parts = mathStr.split(/([\+\*\-\/])/);
     if (parts.length === 5) {    //'-96-9' => ['', '-', '96', '-', '9']
         [sign, n1, op, n2] = [parts[1], parts[2], parts[3], parts[4]]
     } else {                     //'96-9' => ['96','-','9']
@@ -47,7 +47,7 @@ function operate(mathStr) {
         case (op === "*"):
             method = multiply;
             break;
-        case (op === "/"):// add snarky comment for division by 0 here
+        case (op === "/"):
             method = divide;
     }
     if (sign) {

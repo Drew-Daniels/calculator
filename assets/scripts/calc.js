@@ -44,7 +44,8 @@ function operate(mathStr) {
         case (op === "/"):// add snarky comment for division by 0 here
             method = divide;
     }
-    result = String(method(n1, n2));
+    result = String(
+                    Math.round(method(n1, n2)*100000)/100000)
     if (result === 'NaN' || result === 'Infinity' || result ==='undefined') {
         return ERROR_MSG;
     } else {
@@ -68,7 +69,7 @@ function getLastChar() {
 }
 
 function altDisplayParse(disStr) {
-        let parts = disStr.split(/(\d*[+*-\/])/);
+        let parts = disStr.split(/([\d.\d]+[\+\*-\/]+)/);
         let str = parts[1];
         if (str) {
             return str;
@@ -77,7 +78,7 @@ function altDisplayParse(disStr) {
 
 function mainDisplayParse(disStr) {
     if (!(disStr === ERROR_MSG)) {
-        let parts = disStr.split(/(\d*)/);
+        let parts = disStr.split(/(\d*[.]*\d*)/);
         let str = parts.slice(-2,-1);
         if (str) {
             return str;

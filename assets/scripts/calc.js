@@ -3,6 +3,7 @@ function add(n1, n2) {
   };
   
 function subtract(n1, n2) {
+    console.log(n1, n2);
     return (n1 - n2);
 };
 
@@ -27,9 +28,10 @@ function operate(mathStr) {
     let op;
     let n2;
     let result;
-    let parts = mathStr.split(/(\d*)/);
+    let parts = mathStr.split(/([\-]?\d+\.*\d*)/);
+    console.log(parts);
     [n1, op, n2] = [parts[1], parts[2], parts[3]];
-    [n1, n2] = [n1, n2].map(x => parseInt(x))
+    [n1, n2] = [n1, n2].map(x => parseFloat(x))
     let method;
     switch (true) {
         case (op === "+"):
@@ -44,8 +46,8 @@ function operate(mathStr) {
         case (op === "/"):// add snarky comment for division by 0 here
             method = divide;
     }
-    result = String(
-                    Math.round(method(n1, n2)*100000)/100000)
+
+    result = String(Math.round(method(n1, n2)*100000)/100000)
     if (result === 'NaN' || result === 'Infinity' || result ==='undefined') {
         return ERROR_MSG;
     } else {
@@ -68,8 +70,19 @@ function getLastChar() {
     return lastChar;
 }
 
+function getFirstChar() {
+    let firstChar;
+    if (displayStr === '') {
+        firstChar = '';
+    } else {
+        firstChar = displayStr.slice(0,1);
+    }
+    return firstChar;
+}
+
 function altDisplayParse(disStr) {
-        let parts = disStr.split(/([\d.\d]+[\+\*-\/]+)/);
+        
+        let parts = disStr.split(/(^([\-]?\d*\.\d*[\+\-\*\/])|^([\-]?\d*[^\.][\+\-\*\/]))/);
         let str = parts[1];
         if (str) {
             return str;
@@ -78,7 +91,9 @@ function altDisplayParse(disStr) {
 
 function mainDisplayParse(disStr) {
     if (!(disStr === ERROR_MSG)) {
-        let parts = disStr.split(/(\d*[.]*\d*)/);
+        //old = (\d*[.]*\d*)
+        let parts = disStr.split(/([\-]?\d+[.]*\d*)$/);
+        console.log(parts);
         let str = parts.slice(-2,-1);
         if (str) {
             return str;
@@ -128,18 +143,27 @@ btns.forEach(b => b.addEventListener('click', function() {
     // Scenario 3 - ch is an OPERATOR
     else if (operators.includes(ch)) {
         lastDisplayCh = getLastChar();
-        // if displayStr is blank, do not tack on an operator
+        // if displayStr is blank, do not tack on an operator, unless '-'
         if (displayStr === '') {
-            return;
+            if (ch === '-') {
+                displayStr = '-';
+            } else {
+                return;
+            }
         }
         // if lastDisplayCh is operator, replace with ch
         else if (operators.includes(lastDisplayCh)) {
             displayStr = displayStr.slice(0,-1) + ch;
         } else {
             // if displayStr already has operator, send
-            if (/[+*-\/]/.test(displayStr)) {
-                displayStr = operate(displayStr) + ch;
-                // set displayStr to calculated result + ch
+            if (/[\+\*\-\/]/.test(displayStr)) {
+                let firstDisplayChar = getFirstChar();
+                if (firstDisplayChar === '-') {
+                    displayStr = displayStr + ch;
+                } else {
+                    displayStr = operate(displayStr) + ch;
+                }
+            // set displayStr to calculated result + ch
             // if displayStr does NOT already have an operator
             } else {
                 displayStr = displayStr + ch;

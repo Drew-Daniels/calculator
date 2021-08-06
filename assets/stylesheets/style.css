@@ -118,6 +118,7 @@ table {
     border: .5px solid navy;
     border-radius: 5%;
     flex: 1 1 0px;
+    width: 90%;
 }
 
 .btn-big {
@@ -132,8 +133,9 @@ table {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     flex: 1 1 0px;
+    width: 100%;
 }
 
 footer {

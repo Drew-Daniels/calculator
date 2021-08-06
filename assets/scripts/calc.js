@@ -116,7 +116,7 @@ function mainDisplayParse(disStr) {
 
 const mainDisplay = document.querySelector('#MAIN-display-text');
 const altDisplay = document.querySelector('#ALT-display-text');
-const mainDisplayRegex = /(^[\-]?\d*[.]*\d*)$|(\d*)$/; // /([\-]?\d*[.]*\d*)$/
+const mainDisplayRegex = /(^[\-]?\d*[.]*\d*)$|(\d*)$/;
 const altDisplayRegex = /(^([\-]?\d*\.\d*[\+\-\*\/])|^([\-]?\d*[^\.][\+\-\*\/]))/;
 const operatorKey = document.querySelector('#operatorKey');
 const btnNodeList = document.querySelectorAll('button');

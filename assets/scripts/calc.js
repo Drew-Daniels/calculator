@@ -100,7 +100,6 @@ function altDisplayParse(disStr) {
 function mainDisplayParse(disStr) {
     if (!(disStr === ERROR_MSG)) {
         let parts = disStr.split(mainDisplayRegex);
-        console.log(parts);
         if (parts[1] !== undefined) {
             str = parts[1]
         } else {

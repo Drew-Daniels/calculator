@@ -90,7 +90,7 @@ function getFirstChar() {
 
 function altDisplayParse(disStr) {
         
-        let parts = disStr.split(/(^([\-]?\d*\.\d*[\+\-\*\/])|^([\-]?\d*[^\.][\+\-\*\/]))/);
+        let parts = disStr.split(altDisplayRegex);
         let str = parts[1];
         if (str) {
             return str;
@@ -99,9 +99,13 @@ function altDisplayParse(disStr) {
 
 function mainDisplayParse(disStr) {
     if (!(disStr === ERROR_MSG)) {
-        //old = (\d*[.]*\d*)
-        let parts = disStr.split(/([\-]?\d*[.]*\d*)$/);
-        let str = parts.slice(-2,-1);
+        let parts = disStr.split(mainDisplayRegex);
+        console.log(parts);
+        if (parts[1] !== undefined) {
+            str = parts[1]
+        } else {
+            str = parts[2]
+        }
         if (str) {
             return str;
         } else return "";
@@ -112,6 +116,8 @@ function mainDisplayParse(disStr) {
 
 const mainDisplay = document.querySelector('#MAIN-display-text');
 const altDisplay = document.querySelector('#ALT-display-text');
+const mainDisplayRegex = /(^[\-]?\d*[.]*\d*)$|(\d*)$/; // /([\-]?\d*[.]*\d*)$/
+const altDisplayRegex = /(^([\-]?\d*\.\d*[\+\-\*\/])|^([\-]?\d*[^\.][\+\-\*\/]))/;
 const operatorKey = document.querySelector('#operatorKey');
 const btnNodeList = document.querySelectorAll('button');
 const btns = [...btnNodeList];
@@ -126,7 +132,6 @@ let displayStr = '';
 btns.forEach(b => b.addEventListener('click', function() {
     let ch = b.innerText;
     let bId = b.id;
-    let parts;
     // Scenario 1 - clear out ERROR_MSG if present
     if (displayStr === ERROR_MSG) {
         displayStr = '';

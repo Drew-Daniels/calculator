@@ -55,7 +55,7 @@ table {
 
 .btn-base {
     background-color: silver;
-    min-width: 2em;
+    width: 2em;
     border: none;
     color: rgb(73, 73, 73);
     border-radius: .25em;

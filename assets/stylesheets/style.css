@@ -59,11 +59,16 @@ table {
     border: none;
     color: rgb(73, 73, 73);
     border-radius: .25em;
+    text-align: center;
 }
 .btn-option {
-    font-size: 1em;
-    border: 0;
     color: rgb(73, 73, 73);
+    background-color: whitesmoke;
+    width: 3em;
+}
+
+.btn-small {
+    background-color: cornflowerblue;
 }
 #CONTAINER-all {
     display: flex;
@@ -145,14 +150,6 @@ table {
 #ALT-display-text {
     font-size: 1.5em;
     margin-right: .25em;
-}
-
-.btn-big {
-    font-size: 3em;
-}
-
-.btn-small {
-    background-color: cornflowerblue;
 }
 
 .btn-row {

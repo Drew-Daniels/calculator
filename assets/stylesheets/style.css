@@ -59,7 +59,9 @@ table {
     border: none;
     color: rgb(73, 73, 73);
     border-radius: .25em;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .btn-option {
     color: rgb(73, 73, 73);
@@ -157,6 +159,7 @@ table {
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+    width: 100%;
     flex-wrap: wrap;
     flex-basis: 25%;
 }

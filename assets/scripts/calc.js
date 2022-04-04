@@ -129,7 +129,7 @@ let displayStr = '';
 
 // Add on click events
 btns.forEach(b => b.addEventListener('click', function() {
-    let ch = b.innerText;
+    let ch = b.firstChild.textContent;
     let bId = b.id;
     // Scenario 1 - clear out ERROR_MSG if present
     if (displayStr === ERROR_MSG) {

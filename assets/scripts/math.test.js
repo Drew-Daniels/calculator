@@ -1,4 +1,4 @@
-const { add, subtract, multiply, divide } = require('./math.js');
+import { add, subtract, multiply, divide } from './math.js';
 
 describe('"add" Tests', () => {
     describe('Both positive numbers', () => {
